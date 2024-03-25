@@ -116,8 +116,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -140,11 +140,8 @@ MonoBehaviour:
   currentPos: {x: 0, y: 0}
   isDash: 0
   canMove: 1
-  playerInput:
-  - {fileID: 0}
+  playerInput: {fileID: 7753897986845495965}
   pv: {fileID: 144148891590749830}
-  currentControlScheme: 
-  controlSchemeInt: 0
 --- !u!50 &2219482142526609473
 Rigidbody2D:
   serializedVersion: 4

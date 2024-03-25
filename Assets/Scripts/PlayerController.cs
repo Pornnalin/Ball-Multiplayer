@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
     public float speed;
     public float currentSpeed;
@@ -16,109 +16,68 @@ public class PlayerController : MonoBehaviour
     public bool isDash = false;
     private float moveThreshold = 0.1f;
     public bool canMove = true;
-    public PlayerInput[] playerInput;
+    public PlayerInput playerInput;
     public PhotonView pv;
 
-    public string currentControlScheme;
-
-    private Dictionary<string, int> controlSchemeToInt = new Dictionary<string, int>
-    {
-        { "KeyboardMouse", 0 },
-        { "Gamepad", 1 },
-        { "Touch", 2 },
-        { "Joystick", 3 },
-        { "XR", 4 }
-        // Add more control schemes and their corresponding integers as needed
-    };
-
-    [SerializeField] int controlSchemeInt;
 
     public void Start()
     {
-        playerInput = GameObject.FindObjectsOfType<PlayerInput>();
+        // playerInput = FindObjectOfType<PlayerInput>();
         currentSpeed = speed;
         currentPos = transform.position;
-        //if (SceneManager.GetActiveScene().name != "Solo")
-        //{
-        //    pv = GetComponent<PhotonView>();
-        //}
+
+
+        playerInput = GetComponent<PlayerInput>();
+        playerInput.SwitchCurrentControlScheme(ControllerManager.scheme);
+        Debug.Log(ControllerManager.scheme);
+
     }
 
     void Update()
     {
-        playerInput = GameObject.FindObjectsOfType<PlayerInput>();
-
-        //if (SceneManager.GetActiveScene().name != "Solo")
-        //{
-            if (pv.IsMine && GameManger.isRedy)
+       
+        if (pv.IsMine && GameManger.isRedy)
+        {
+            // อ่านค่า Input จาก Joystick
+            if (canMove)
             {
-
-                for (int i = 0; i < playerInput.Length; ++i)
-                {
-                    // อ่านค่า Input จาก Joystick
-                    if (canMove)
-                    {
-                        moveInput = playerInput[i].actions["Move"].ReadValue<Vector2>();
-                        // Debug.Log(moveInput);
-                    }
-                    if (playerInput[i].actions["Dash"].IsPressed() && !isDash)
-                    {
-                        StartCoroutine(waitChangeSpeed());
-                        Debug.Log("Dash!!");
-                    }
-                }
+                moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
+                // Debug.Log(moveInput);
             }
+            if (playerInput.actions["Dash"].IsPressed() && !isDash)
+            {
+                StartCoroutine(waitChangeSpeed());
+                Debug.Log("Dash!!");
+            }
+
+            Debug.Log(playerInput.currentControlScheme);
+
+        }
      
+
     }
 
     void FixedUpdate()
     {
         //if (SceneManager.GetActiveScene().name != "Solo")
         //{
-            if (pv.IsMine && GameManger.isRedy)
+        if (pv.IsMine && GameManger.isRedy)
+        {
+            // ขยับตำแหน่งของ GameObject ตาม Input ที่รับเข้ามา
+            Vector2 newPos = moveInput * currentSpeed;
+            rigi.velocity = newPos;
+            currentPos = newPos;
+
+            if (moveInput.magnitude < moveThreshold)
             {
-                for (int i = 0; i < playerInput.Length; ++i)
-                {
-                    currentControlScheme = playerInput[i].currentControlScheme;
-
-                    if (controlSchemeToInt.TryGetValue(currentControlScheme, out controlSchemeInt))
-                    {
-                        Debug.Log(controlSchemeInt);
-                    }
-                }
-
-                //if(playerInput.currentControlScheme)
-
-                // ขยับตำแหน่งของ GameObject ตาม Input ที่รับเข้ามา
-                Vector2 newPos = moveInput * currentSpeed;
-                rigi.velocity = newPos;
-                currentPos = newPos;
-
-                if (moveInput.magnitude < moveThreshold)
-                {
-                    // No movement input detected
-                    // You can add your code here to handle this case
-                    rigi.velocity = Vector2.zero;
-                    Debug.Log("No movement input detected.");
-                }
-                //   Debug.Log(newPos);
+                // No movement input detected
+                // You can add your code here to handle this case
+                rigi.velocity = Vector2.zero;
+                Debug.Log("No movement input detected.");
             }
-        //}
-        //if (SceneManager.GetActiveScene().name == "Solo")
-        //{
-        //    Vector2 newPos = moveInput * currentSpeed;
-        //    rigi.velocity = newPos;
-        //    currentPos = newPos;
+            //   Debug.Log(newPos);
+        }
 
-        //    if (moveInput.magnitude < moveThreshold)
-        //    {
-        //        // No movement input detected
-        //        // You can add your code here to handle this case
-        //        rigi.velocity = Vector2.zero;
-        //        Debug.Log("No movement input detected.");
-        //    }
-
-        //}
     }
     IEnumerator waitChangeSpeed()
     {
