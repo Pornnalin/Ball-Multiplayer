@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Photon.Pun;
-using UnityEngine.SceneManagement;
-using TMPro;
 
-public class PlayerController : MonoBehaviourPun
+public class PlayerSoloController : MonoBehaviour
 {
     public float speed;
     public float currentSpeed;
@@ -18,44 +15,40 @@ public class PlayerController : MonoBehaviourPun
     private float moveThreshold = 0.1f;
     public bool canMove = true;
     public PlayerInput playerInput;
-    public PhotonView pv;
-    public Color[] colors;
-    public SpriteRenderer playerSprite;
-    public TextMeshProUGUI nameText;
+
+
+
     public void Start()
     {
         // playerInput = FindObjectOfType<PlayerInput>();
         currentSpeed = speed;
         currentPos = transform.position;
+
+
         playerInput = GetComponent<PlayerInput>();
-        playerSprite = GetComponent<SpriteRenderer>();
-        //  photonView.RPC("ChangeColorRPC", RpcTarget.OthersBuffered, color);
-        photonView.RPC("SendPlayerNameRPC", RpcTarget.AllBuffered);
+        //playerInput.SwitchCurrentControlScheme(ControllerManager.scheme);
+        //Debug.Log(ControllerManager.scheme);
+
     }
 
     void Update()
     {
 
-        if (pv.IsMine && GameManger.isRedy)
+        if (GameManger.isRedy)
         {
             // อ่านค่า Input จาก Joystick
-            if (canMove)
-            {
-                moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-                // Debug.Log(moveInput);
-            }
+
+            moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
+            Debug.Log(moveInput);
+
             if (playerInput.actions["Dash"].IsPressed() && !isDash)
             {
                 StartCoroutine(waitChangeSpeed());
                 Debug.Log("Dash!!");
             }
 
-            //Debug.Log(playerInput.currentControlScheme);
+            Debug.Log(playerInput.currentControlScheme);
 
-        }
-        else
-        {
-            playerInput.enabled = false;
         }
 
 
@@ -65,7 +58,7 @@ public class PlayerController : MonoBehaviourPun
     {
         //if (SceneManager.GetActiveScene().name != "Solo")
         //{
-        if (pv.IsMine && GameManger.isRedy)
+        if (GameManger.isRedy)
         {
             // ขยับตำแหน่งของ GameObject ตาม Input ที่รับเข้ามา
             Vector2 newPos = moveInput * currentSpeed;
@@ -77,7 +70,7 @@ public class PlayerController : MonoBehaviourPun
                 // No movement input detected
                 // You can add your code here to handle this case
                 rigi.velocity = Vector2.zero;
-                // Debug.Log("No movement input detected.");
+                Debug.Log("No movement input detected.");
             }
             //   Debug.Log(newPos);
         }
@@ -92,14 +85,4 @@ public class PlayerController : MonoBehaviourPun
         isDash = false;
 
     }
-
-    [PunRPC]
-    void SendPlayerNameRPC()
-    {
-        nameText.text = pv.Owner.NickName; ;
-        // this.target.photonView.Owner.NickName;
-        Debug.Log("Player name: " + nameText.text);
-    }
-
 }
-

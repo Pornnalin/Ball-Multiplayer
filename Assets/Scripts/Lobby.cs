@@ -49,6 +49,7 @@ public class Lobby : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LocalPlayer.NickName = _playerName;
             playerName.text = _playerName;
+            PlayerPrefs.SetString("namePlayer", _playerName);
             PhotonNetwork.ConnectUsingSettings();
         }
         else

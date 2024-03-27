@@ -2005,6 +2005,52 @@ MonoBehaviour:
   ballSprite: {fileID: 1863438797}
   circleCollider2D: {fileID: 1863438796}
   rigi: {fileID: 1863438795}
+--- !u!1 &2015049303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2015049305}
+  - component: {fileID: 2015049304}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2015049304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015049303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eefcb23c02386f4b90e2a46a5cde05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tMP_Dropdown: {fileID: 0}
+  playerInput: {fileID: 7902008186256153279}
+--- !u!4 &2015049305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015049303}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2129148072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2301,7 +2347,7 @@ GameObject:
   - component: {fileID: 3703828221370584625}
   - component: {fileID: 1044471711206494657}
   - component: {fileID: 7902008186256153279}
-  - component: {fileID: 8514132809192032666}
+  - component: {fileID: 8158902676121597965}
   - component: {fileID: 1801400856438050915}
   - component: {fileID: 8158902676121597964}
   m_Layer: 0
@@ -2369,7 +2415,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -2418,7 +2464,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8514132809192032666
+--- !u!114 &8158902676121597965
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2427,7 +2473,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3772840543374492369}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6258e0b1c645ad46b46b6cdf3002e22, type: 3}
+  m_Script: {fileID: 11500000, guid: 0114ec6e3de7e2349b35870ff263936e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
@@ -2438,7 +2484,6 @@ MonoBehaviour:
   isDash: 0
   canMove: 1
   playerInput: {fileID: 7902008186256153279}
-  pv: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2455,3 +2500,4 @@ SceneRoots:
   - {fileID: 922665719}
   - {fileID: 487229442}
   - {fileID: 3703828221370584625}
+  - {fileID: 2015049305}
