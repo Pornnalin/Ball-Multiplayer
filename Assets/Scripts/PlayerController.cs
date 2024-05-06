@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviourPun
     void Update()
     {
 
-        if (pv.IsMine && GameManger.isRedy)
+        if (pv.IsMine && GameManagerPun.isRedy)
         {
             // อ่านค่า Input จาก Joystick
             if (canMove)
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviourPun
     {
         //if (SceneManager.GetActiveScene().name != "Solo")
         //{
-        if (pv.IsMine && GameManger.isRedy)
+        if (pv.IsMine && GameManagerPun.isRedy)
         {
             // ขยับตำแหน่งของ GameObject ตาม Input ที่รับเข้ามา
             Vector2 newPos = moveInput * currentSpeed;

@@ -33,7 +33,7 @@ public class Goal : MonoBehaviour
 
         var index = Random.Range(0, boxCollider2Ds.Count);
         bounds = boxCollider2Ds[index].bounds;
-        Debug.Log(index);
+       // Debug.Log(index);
         // Bounds bounds = GetComponent<Collider2D>().bounds;
         float offsetX = Random.Range(-bounds.extents.x, bounds.extents.x);
         float offsetY = Random.Range(-bounds.extents.y, bounds.extents.y);

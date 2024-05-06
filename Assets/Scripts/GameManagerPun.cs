@@ -5,7 +5,7 @@ using TMPro;
 using Photon.Realtime;
 using Photon.Pun;
 
-public class GameManger : MonoBehaviourPunCallbacks
+public class GameManagerPun : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private GameObject playerPrefab;
