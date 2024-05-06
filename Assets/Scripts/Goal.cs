@@ -1,13 +1,15 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goal : MonoBehaviour
+public class Goal : MonoBehaviourPun
 {
     public GameObject targert;
     public List<BoxCollider2D> boxCollider2Ds;
     private Bounds bounds;
     private int index;
+    public PhotonView view;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +25,19 @@ public class Goal : MonoBehaviour
         if (Ball.isGoal)
         {
             Ball.isGoal = false;
-            RandomPosition();
+            if (!GameManager.instance.isSolo)
+            {
+                view.RPC("RandomPosition", RpcTarget.AllBuffered);
+            }
+            else
+            {
+                RandomPosition();
+
+            }
         }
 
     }
+    [PunRPC]
     void RandomPosition()
     {
         targert.transform.rotation = Quaternion.identity;

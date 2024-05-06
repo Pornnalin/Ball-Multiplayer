@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Ball : MonoBehaviour
+public class Ball : MonoBehaviourPunCallbacks
 {
     [SerializeField] SpriteRenderer ballSprite;
     [SerializeField] CircleCollider2D circleCollider2D;
@@ -50,7 +51,6 @@ public class Ball : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         //scorePlayer.SoloAdd();
 
         if (collision.collider.CompareTag("P1"))
